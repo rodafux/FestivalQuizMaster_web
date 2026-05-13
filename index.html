@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Festival Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+    <div id="login-screen" class="screen">
+        <h1>Rejoindre le Quiz</h1>
+        <input type="text" id="nickname" placeholder="Ton pseudo" maxlength="15">
+        <button id="join-btn">C'est parti !</button>
+        <div id="error-msg" class="hidden">Le quiz est déjà verrouillé.</div>
+    </div>
+
+    <div id="waiting-screen" class="screen hidden">
+        <h2 id="waiting-text">En attente de la prochaine question...</h2>
+    </div>
+
+    <div id="question-screen" class="screen hidden">
+        <h2 id="question-text">Choisis ta réponse</h2>
+        <div class="grid">
+            <button class="answer-btn" id="btn-0" data-index="0">A</button>
+            <button class="answer-btn" id="btn-1" data-index="1">B</button>
+            <button class="answer-btn" id="btn-2" data-index="2">C</button>
+            <button class="answer-btn" id="btn-3" data-index="3">D</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
