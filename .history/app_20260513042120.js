@@ -28,35 +28,6 @@ let currentQuestionId = null;
 let questionStartTime = 0;
 let hasAnswered = false;
 
-window.addEventListener('beforeunload', () => {
-    if (playerId) {
-        database.ref('Players/' + playerId).remove();
-    }
-});
-
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden' && playerId) {
-        database.ref('Players/' + playerId).onDisconnect().remove();
-    }
-});
-
-database.ref('QuizState/IsEnded').on('value', (snapshot) => {
-    if (snapshot.val() === true) {
-        if (!podiumScreen.classList.contains('hidden')) return;
-        
-        questionScreen.classList.add('hidden');
-        waitingScreen.classList.add('hidden');
-        loginScreen.classList.add('hidden');
-        podiumMsg.innerText = "Fin du Quiz !\nMerci d'avoir participé.";
-        podiumScreen.classList.remove('hidden');
-    } else {
-        if (!podiumScreen.classList.contains('hidden') && !loginScreen.classList.contains('hidden')) {
-            podiumScreen.classList.add('hidden');
-            loginScreen.classList.remove('hidden');
-        }
-    }
-});
-
 database.ref('QuizState/IsLocked').on('value', (snapshot) => {
     isLocked = snapshot.val() || false;
 });
@@ -110,10 +81,8 @@ joinBtn.addEventListener('click', () => {
             Score: 0,
             TotalResponseTimeMs: 0
         }).then(() => {
-            database.ref('Players/' + playerId).onDisconnect().remove();
             loginScreen.classList.add('hidden');
             waitingScreen.classList.remove('hidden');
-            podiumScreen.classList.add('hidden');
         });
     });
 });
